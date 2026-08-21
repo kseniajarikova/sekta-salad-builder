@@ -167,7 +167,9 @@ footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
 
     function shoppingItems(items) {
       return items.reduce(function (result, item) {
-        return result.concat(item.shoppingItems || [{ name: item.name, amount: item.amount }]);
+        var grams = item.amount.match(/(\d+\s*г)(?:\s|$)/);
+        var defaultItem = { name: item.name, amount: grams ? grams[1] : item.amount };
+        return result.concat(item.shoppingItems || [defaultItem]);
       }, []);
     }
 

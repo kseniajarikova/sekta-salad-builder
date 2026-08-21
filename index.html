@@ -59,8 +59,8 @@ button { font:inherit; }
 .result-card>h2 { margin:2px 0 18px; font-size:41px; line-height:.94; }
 .combination-note { margin:-2px 0 20px; padding:14px 15px; border:1px solid #efbca9; border:1px solid color-mix(in srgb,var(--orange) 38%,white); border-radius:7px; background:#fce9e2; background:color-mix(in srgb,var(--orange) 13%,white); color:var(--ink); font-size:13.5px; line-height:1.5; }
 .combination-note b { display:block; margin-bottom:2px; font-size:14px; line-height:1.3; }
-.mini-bowl { height:98px; margin:8px 0 26px; padding:8px; display:flex; align-items:center; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.72); overflow:hidden; }
-.mini-bowl>span { flex:1 1 0; min-width:0; height:78px; display:block; }
+.mini-bowl { min-height:98px; margin:8px 0 26px; padding:8px; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); align-items:center; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.72); overflow:hidden; transition:min-height .2s ease; }
+.mini-bowl>span { min-width:0; height:78px; display:block; }
 .mini-bowl .ingredient-visual { height:78px; border-radius:0; background:transparent; }
 .method h3,.shopping h3 { margin:0; font:400 21px Georgia,serif; }
 .method ol { list-style:none; margin:16px 0 22px; padding:0; }
@@ -111,8 +111,8 @@ footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
 
     <section class="builder-shell" id="builder">
       <div class="builder-heading">
-        <div><p class="kicker">Конструктор</p><h2>Выбирай по одному продукту<br>из каждого ряда</h2><p>Мы указали объём и вес продукта. Выбирай тот формат, который тебе удобнее.</p></div>
-        <p>Нажимай на карточки. Рецепт<br>и список покупок обновятся сами.</p>
+        <div><p class="kicker">Конструктор</p><h2>Собери салат<br>на свой вкус</h2><p>Мы указали объём и вес продукта. Выбирай тот формат, который тебе удобнее. Оптимальная порция получится, если добавить по одному продукту из каждой категории. Если хочется, добавляй больше ингредиентов на свой вкус. В любом случае советуем выбрать только одну заправку.</p></div>
+        <p>Нажимай на карточки. Все выбранные продукты появятся в рецепте и списке покупок.</p>
       </div>
       <div class="builder-grid">
         <div class="choices" id="choices"></div>
@@ -137,13 +137,13 @@ footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
   <script>
   (function () {
     "use strict";
-    var categories = [{"id":"base","eyebrow":"Шаг 1. Основа","title":"Выбери зелень","hint":"2 большие горсти","items":[{"id":"romaine","name":"Романо","amount":"2 горсти, 100 г","note":"нарви руками"},{"id":"arugula","name":"Рукола","amount":"2 горсти, 70 г","note":"оставь целой"},{"id":"spinach","name":"Шпинат","amount":"2 горсти, 80 г","note":"оставь целым"},{"id":"cabbage","name":"Молодая капуста","amount":"2 горсти, 120 г","note":"тонко нашинкуй"}]},{"id":"protein","eyebrow":"Шаг 2. Сытность","title":"Добавь источник белка","hint":"1 ладонь","items":[{"id":"chicken","name":"Курица","amount":"1 ладонь, 120 г","note":"нарежь ломтиками"},{"id":"tuna","name":"Тунец","amount":"1 ладонь, 120 г","note":"слей жидкость"},{"id":"egg","name":"Варёные яйца","amount":"2 шт., 100 г","note":"разрежь на четвертинки"},{"id":"chickpea","name":"Нут","amount":"¾ стакана, 130 г","note":"промой и обсуши"},{"id":"tofu","name":"Тофу","amount":"1 ладонь, 120 г","note":"обжарь до золотистости"}]},{"id":"juicy","eyebrow":"Шаг 3. Сочность","title":"Выбери сочное","hint":"1 кулак","items":[{"id":"tomato","name":"Томаты","amount":"1 кулак, 150 г","note":"нарежь крупно"},{"id":"cucumber","name":"Огурец","amount":"1 кулак, 120 г","note":"нарежь полукружьями"},{"id":"orange","name":"Апельсин","amount":"1 шт., 150 г","note":"очисти и нарежь"},{"id":"pear","name":"Груша","amount":"1 шт., 150 г","note":"нарежь тонкими дольками"},{"id":"peach","name":"Персик","amount":"1 шт., 150 г","note":"нарежь дольками"}]},{"id":"crunch","eyebrow":"Шаг 4. Текстура","title":"Добавь хруста","hint":"1 или 2 ст. ложки","items":[{"id":"radish","name":"Редис","amount":"5 шт., 80 г","note":"нарежь тонко"},{"id":"seeds","name":"Семена подсолнечника","amount":"2 ст. л., 20 г","note":"подсуши на сковороде"},{"id":"walnut","name":"Грецкий орех","amount":"1 горсть, 20 г","note":"крупно поруби"},{"id":"croutons","name":"Сухарики","amount":"1 горсть, 30 г","note":"добавь перед подачей"}]},{"id":"fat","eyebrow":"Шаг 5. Баланс","title":"Добавь нежности","hint":"1 небольшой акцент","items":[{"id":"avocado","name":"Авокадо","amount":"½ шт., 80 г","note":"нарежь кубиком"},{"id":"feta","name":"Фета","amount":"3 ст. л., 40 г","note":"раскроши"},{"id":"mozzarella","name":"Моцарелла","amount":"4 шарика, 60 г","note":"разорви руками"},{"id":"olive","name":"Оливки","amount":"8 шт., 40 г","note":"разрежь пополам"}]},{"id":"dressing","eyebrow":"Шаг 6. Финальный штрих","title":"Соедини с заправкой","hint":"смешай в баночке","items":[{"id":"lemon","name":"Лимон + масло","amount":"1 ст. л. сока, 2 ст. л. масла","note":"смешай лимонный сок, оливковое масло и соль","shoppingItems":[{"name":"Лимонный сок","amount":"1 ст. л."},{"name":"Оливковое масло","amount":"2 ст. л."},{"name":"Соль","amount":"по вкусу"}]},{"id":"mustard","name":"Мёд + горчица","amount":"по 1 ч. л. и 1 ст. л. масла","note":"смешай мёд, горчицу и оливковое масло","shoppingItems":[{"name":"Мёд","amount":"1 ч. л."},{"name":"Горчица","amount":"1 ч. л."},{"name":"Оливковое масло","amount":"1 ст. л."}]},{"id":"yogurt","name":"Йогурт + соль и перец","amount":"2 ст. л. йогурта","note":"смешай йогурт, соль, перец и немного лимонного сока","shoppingItems":[{"name":"Йогурт","amount":"2 ст. л."},{"name":"Соль и перец","amount":"по вкусу"},{"name":"Лимонный сок","amount":"по вкусу"}]},{"id":"tahini","name":"Тахини + лайм","amount":"по 1 ст. л. и 1 ст. л. воды","note":"смешай тахини, сок лайма и воду","shoppingItems":[{"name":"Тахини","amount":"1 ст. л."},{"name":"Сок лайма","amount":"1 ст. л."},{"name":"Вода","amount":"1 ст. л."}]}]}];
-    var recipeNames = {"chicken":"курицей","tuna":"тунцом","egg":"яйцами","chickpea":"нутом","tofu":"тофу","tomato":"томатами","cucumber":"огурцом","orange":"апельсином","pear":"грушей","peach":"персиком"};
+    var categories = [{"id":"base","eyebrow":"Шаг 1. Основа","title":"Выбери зелень","hint":"2 большие горсти","items":[{"id":"romaine","name":"Романо","amount":"2 горсти, 100 г","note":"нарви руками"},{"id":"arugula","name":"Рукола","amount":"2 горсти, 70 г","note":"оставь целой"},{"id":"spinach","name":"Шпинат","amount":"2 горсти, 80 г","note":"оставь целым"},{"id":"cabbage","name":"Молодая капуста","amount":"2 горсти, 120 г","note":"тонко нашинкуй"}]},{"id":"protein","eyebrow":"Шаг 2. Сытность","title":"Добавь источник белка","hint":"1 ладонь","items":[{"id":"chicken","name":"Курица","amount":"1 ладонь, 120 г","note":"нарежь ломтиками"},{"id":"tuna","name":"Тунец","amount":"1 ладонь, 120 г","note":"слей жидкость"},{"id":"egg","name":"Варёные яйца","amount":"2 шт., 100 г","note":"разрежь на четвертинки"},{"id":"chickpea","name":"Нут","amount":"¾ стакана, 130 г","note":"промой и обсуши"},{"id":"tofu","name":"Тофу","amount":"1 ладонь, 120 г","note":"обжарь до золотистости"}]},{"id":"juicy","eyebrow":"Шаг 3. Сочность","title":"Выбери сочное","hint":"1 кулак","items":[{"id":"tomato","name":"Томаты","amount":"1 кулак, 150 г","note":"нарежь крупно"},{"id":"cucumber","name":"Огурец","amount":"1 кулак, 120 г","note":"нарежь полукружьями"},{"id":"orange","name":"Апельсин","amount":"1 шт., 150 г","note":"очисти и нарежь"},{"id":"pear","name":"Груша","amount":"1 шт., 150 г","note":"нарежь тонкими дольками"},{"id":"peach","name":"Персик","amount":"1 шт., 150 г","note":"нарежь дольками"},{"id":"watermelon","name":"Арбуз","amount":"1 кулак, 150 г","note":"нарежь кубиками"}]},{"id":"crunch","eyebrow":"Шаг 4. Текстура","title":"Добавь хруста","hint":"1 или 2 ст. ложки","items":[{"id":"radish","name":"Редис","amount":"5 шт., 80 г","note":"нарежь тонко"},{"id":"seeds","name":"Семена подсолнечника","amount":"2 ст. л., 20 г","note":"подсуши на сковороде"},{"id":"walnut","name":"Грецкий орех","amount":"1 горсть, 20 г","note":"крупно поруби"},{"id":"croutons","name":"Сухарики","amount":"1 горсть, 30 г","note":"добавь перед подачей"}]},{"id":"fat","eyebrow":"Шаг 5. Баланс","title":"Добавь нежности","hint":"1 небольшой акцент","items":[{"id":"avocado","name":"Авокадо","amount":"½ шт., 80 г","note":"нарежь кубиком"},{"id":"feta","name":"Фета","amount":"3 ст. л., 40 г","note":"раскроши"},{"id":"mozzarella","name":"Моцарелла","amount":"4 шарика, 60 г","note":"разорви руками"},{"id":"olive","name":"Оливки","amount":"8 шт., 40 г","note":"разрежь пополам"}]},{"id":"dressing","eyebrow":"Шаг 6. Финальный штрих","title":"Соедини с заправкой","hint":"смешай в баночке","items":[{"id":"lemon","name":"Лимон + масло","amount":"1 ст. л. сока, 2 ст. л. масла","note":"смешай лимонный сок, оливковое масло и соль","shoppingItems":[{"name":"Лимонный сок","amount":"1 ст. л."},{"name":"Оливковое масло","amount":"2 ст. л."},{"name":"Соль","amount":"по вкусу"}]},{"id":"mustard","name":"Мёд + горчица","amount":"по 1 ч. л. и 1 ст. л. масла","note":"смешай мёд, горчицу и оливковое масло","shoppingItems":[{"name":"Мёд","amount":"1 ч. л."},{"name":"Горчица","amount":"1 ч. л."},{"name":"Оливковое масло","amount":"1 ст. л."}]},{"id":"yogurt","name":"Йогурт + соль и перец","amount":"2 ст. л. йогурта","note":"смешай йогурт, соль, перец и немного лимонного сока","shoppingItems":[{"name":"Йогурт","amount":"2 ст. л."},{"name":"Соль и перец","amount":"по вкусу"},{"name":"Лимонный сок","amount":"по вкусу"}]},{"id":"tahini","name":"Тахини + лайм","amount":"по 1 ст. л. и 1 ст. л. воды","note":"смешай тахини, сок лайма и воду","shoppingItems":[{"name":"Тахини","amount":"1 ст. л."},{"name":"Сок лайма","amount":"1 ст. л."},{"name":"Вода","amount":"1 ст. л."}]}]}];
+    var recipeNames = {"chicken":"курицей","tuna":"тунцом","egg":"яйцами","chickpea":"нутом","tofu":"тофу","tomato":"томатами","cucumber":"огурцом","orange":"апельсином","pear":"грушей","peach":"персиком","watermelon":"арбузом"};
     var selection = {};
     var shoppingText = "";
 
     categories.forEach(function (category) {
-      selection[category.id] = category.items[0].id;
+      selection[category.id] = [category.items[0].id];
     });
 
     function escapeHtml(value) {
@@ -156,10 +156,13 @@ footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
       return '<span class="ingredient-visual" aria-hidden="true"><img src="ingredients/' + escapeHtml(item.id) + '.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span>';
     }
 
-    function selectedItems() {
-      return categories.map(function (category) {
-        return category.items.find(function (item) { return item.id === selection[category.id]; });
-      }).filter(Boolean);
+    function selectedItems(categoryId) {
+      return categories.reduce(function (result, category) {
+        if (categoryId && category.id !== categoryId) return result;
+        return result.concat(category.items.filter(function (item) {
+          return selection[category.id].indexOf(item.id) !== -1;
+        }));
+      }, []);
     }
 
     function shoppingItems(items) {
@@ -171,32 +174,40 @@ footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
     function renderChoices() {
       document.getElementById("choices").innerHTML = categories.map(function (category) {
         var cards = category.items.map(function (item) {
-          var active = selection[category.id] === item.id;
-          return '<button class="ingredient-card' + (active ? ' is-selected' : '') + '" type="button" role="radio" aria-checked="' + active + '" data-category="' + escapeHtml(category.id) + '" data-ingredient="' + escapeHtml(item.id) + '">' + visual(item) + '<strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.amount) + '</small><span class="check">✓</span></button>';
+          var active = selection[category.id].indexOf(item.id) !== -1;
+          var role = category.id === "dressing" ? "radio" : "checkbox";
+          return '<button class="ingredient-card' + (active ? ' is-selected' : '') + '" type="button" role="' + role + '" aria-checked="' + active + '" data-category="' + escapeHtml(category.id) + '" data-ingredient="' + escapeHtml(item.id) + '">' + visual(item) + '<strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.amount) + '</small><span class="check">✓</span></button>';
         }).join("");
-        return '<section class="category"><div class="category-title"><div><p>' + escapeHtml(category.eyebrow) + '</p><h3>' + escapeHtml(category.title) + '</h3></div><span>' + escapeHtml(category.hint) + '</span></div><p class="scroll-hint" aria-hidden="true">Листай варианты <span>→</span></p><div class="ingredient-scroll"><div class="ingredient-row" role="radiogroup" aria-label="' + escapeHtml(category.title) + '">' + cards + '</div></div></section>';
+        var groupRole = category.id === "dressing" ? "radiogroup" : "group";
+        return '<section class="category"><div class="category-title"><div><p>' + escapeHtml(category.eyebrow) + '</p><h3>' + escapeHtml(category.title) + '</h3></div><span>' + escapeHtml(category.hint) + '</span></div><p class="scroll-hint" aria-hidden="true">Листай варианты <span>→</span></p><div class="ingredient-scroll"><div class="ingredient-row" role="' + groupRole + '" aria-label="' + escapeHtml(category.title) + '">' + cards + '</div></div></section>';
       }).join("");
     }
 
     function renderResult() {
       var items = selectedItems();
       var purchases = shoppingItems(items);
-      var fruitSelected = ["orange", "pear", "peach"].indexOf(selection.juicy) !== -1;
-      var advice = "";
-      if (fruitSelected && selection.protein === "tuna") advice = "К тунцу лучше подойдут томаты или огурец. Либо выбери другой белковый компонент.";
-      if (fruitSelected && selection.protein === "egg") advice = "К яйцам лучше подойдут томаты или огурец. Либо выбери другой белковый компонент.";
+      var proteins = selection.protein;
+      var juicy = selection.juicy;
+      var fruitSelected = juicy.some(function (id) { return ["orange", "pear", "peach"].indexOf(id) !== -1; });
+      var adviceParts = [];
+      if (fruitSelected && proteins.indexOf("tuna") !== -1) adviceParts.push("К тунцу лучше подойдут томаты или огурец. Либо выбери другой белковый продукт.");
+      if (fruitSelected && proteins.indexOf("egg") !== -1) adviceParts.push("К яйцам лучше подойдут томаты или огурец. Либо выбери другой белковый продукт.");
+      if (juicy.indexOf("watermelon") !== -1 && proteins.indexOf("egg") !== -1) adviceParts.push("Сочетание яиц и арбуза не самое гармоничное. Выбери другой белковый продукт либо замени арбуз на томаты или огурец.");
+      var advice = adviceParts.join(" ");
+      var primaryProtein = selectedItems("protein")[0];
+      var primaryJuicy = selectedItems("juicy")[0];
 
-      document.getElementById("selection-count").textContent = items.length + "/6";
-      document.getElementById("result-title").innerHTML = "Салат<br><em>с " + escapeHtml(recipeNames[items[1].id]) + " и " + escapeHtml(recipeNames[items[2].id]) + "</em>";
+      document.getElementById("selection-count").textContent = items.length + " выбрано";
+      document.getElementById("result-title").innerHTML = "Салат<br><em>с " + escapeHtml(recipeNames[primaryProtein.id]) + " и " + escapeHtml(recipeNames[primaryJuicy.id]) + "</em>";
 
       var adviceNode = document.getElementById("pairing-advice");
       adviceNode.hidden = !advice;
       adviceNode.innerHTML = advice ? "<b>Сочетание не самое гармоничное.</b> " + escapeHtml(advice) : "";
       document.getElementById("mini-bowl").innerHTML = items.map(function (item) { return "<span>" + visual(item) + "</span>"; }).join("");
 
-      var preparation = items.slice(0, 3).map(function (item) { return escapeHtml(item.name) + ": " + escapeHtml(item.note) + "."; }).join(" ");
-      var finishing = items.slice(3).map(function (item) { return escapeHtml(item.name) + ": " + escapeHtml(item.note) + "."; }).join(" ");
-      document.getElementById("method-list").innerHTML = '<li><span>1</span><p><b>Подготовь.</b> ' + preparation + '</p></li><li><span>2</span><p><b>Смешай.</b> Сложи основу, белковый продукт и сочный ингредиент в большую миску.</p></li><li><span>3</span><p><b>Заверши.</b> ' + finishing + '</p></li>';
+      var preparation = selectedItems("base").concat(selectedItems("protein"), selectedItems("juicy")).map(function (item) { return escapeHtml(item.name) + ": " + escapeHtml(item.note) + "."; }).join(" ");
+      var finishing = selectedItems("crunch").concat(selectedItems("fat"), selectedItems("dressing")).map(function (item) { return escapeHtml(item.name) + ": " + escapeHtml(item.note) + "."; }).join(" ");
+      document.getElementById("method-list").innerHTML = '<li><span>1</span><p><b>Подготовь.</b> ' + preparation + '</p></li><li><span>2</span><p><b>Смешай.</b> Сложи подготовленные продукты в большую миску.</p></li><li><span>3</span><p><b>Заверши.</b> ' + finishing + '</p></li>';
 
       document.getElementById("shopping-list").innerHTML = purchases.map(function (item) {
         return "<li><span>" + escapeHtml(item.name) + "</span><b>" + escapeHtml(item.amount) + "</b></li>";
@@ -256,10 +267,20 @@ footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
     document.getElementById("choices").addEventListener("click", function (event) {
       var button = event.target.closest(".ingredient-card");
       if (!button) return;
-      selection[button.dataset.category] = button.dataset.ingredient;
+      var categoryId = button.dataset.category;
+      var ingredientId = button.dataset.ingredient;
+      var current = selection[categoryId];
+      if (categoryId === "dressing") {
+        selection[categoryId] = [ingredientId];
+      } else if (current.indexOf(ingredientId) !== -1) {
+        if (current.length === 1) return;
+        selection[categoryId] = current.filter(function (id) { return id !== ingredientId; });
+      } else {
+        selection[categoryId] = current.concat(ingredientId);
+      }
       var group = button.closest(".ingredient-row");
       group.querySelectorAll(".ingredient-card").forEach(function (card) {
-        var active = card === button;
+        var active = selection[categoryId].indexOf(card.dataset.ingredient) !== -1;
         card.classList.toggle("is-selected", active);
         card.setAttribute("aria-checked", String(active));
       });

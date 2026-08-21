@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F4EC">
+  <title>Конструктор салатов SEKTA</title>
+  <meta name="description" content="Собери вкусный и сбалансированный салат за шесть простых шагов.">
+  <link rel="icon" href="favicon.svg">
+  <style>:root { --paper:#F7F4EC; --ink:#202820; --green:#355D46; --selected:#E3ECD8; --orange:#E8794F; --lime:#C8D86A; --line:rgba(32,40,32,.18); }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,Helvetica,sans-serif; }
+button,a { -webkit-tap-highlight-color:transparent; }
+button { font:inherit; }
+.site-header { height:72px; display:flex; align-items:center; justify-content:space-between; padding:0 5vw; border-bottom:1px solid var(--line); }
+.brand-logo { width:118px; display:block; overflow:hidden; line-height:0; }
+.brand-logo img { width:100%; height:auto; display:block; }
+.footer-logo { width:178px; }
+.footer-logo img { filter:invert(1); }
+.site-header p { margin:0; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+.hero { min-height:520px; padding:88px 7vw 94px; display:flex; align-items:center; border-bottom:1px solid var(--line); }
+.hero-copy { width:min(980px,100%); }
+.kicker { margin:0 0 18px; font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+.hero h1,.builder-heading h2,.result-card>h2 { font-family:Georgia,"Times New Roman",serif; font-weight:400; letter-spacing:-.045em; }
+.hero h1 { max-width:790px; margin:0; font-size:clamp(58px,6.3vw,102px); line-height:.88; }
+.hero h1 em,.result-card>h2 em { font-weight:400; color:var(--green); }
+.intro { max-width:500px; margin:34px 0 28px; font-size:17px; line-height:1.55; }
+.start-link { display:inline-flex; align-items:center; gap:16px; min-height:48px; color:#fff; background:var(--orange); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; text-decoration:none; border-radius:8px; padding:7px 7px 7px 20px; transition:transform .2s ease,background .2s ease; }
+.start-link:hover { transform:translateY(-2px); background:var(--green); }
+.start-link b { width:34px; height:34px; display:grid; place-items:center; border-radius:5px; background:var(--lime); color:var(--ink); font-size:17px; }
+.builder-shell { background:rgba(255,255,255,.88); padding:92px 5vw 90px; }
+.builder-heading { display:flex; justify-content:space-between; align-items:end; max-width:1420px; margin:0 auto 64px; }
+.builder-heading h2 { margin:0; font-size:clamp(42px,4.5vw,72px); line-height:.94; }
+.builder-heading>div>p:last-child { max-width:590px; margin:22px 0 0; color:rgba(32,40,32,.7); font-size:15px; line-height:1.6; }
+.builder-heading>p { margin:0 0 8px; max-width:360px; color:rgba(32,40,32,.7); font-size:15px; line-height:1.6; }
+.builder-grid { max-width:1420px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) 420px; gap:46px; align-items:start; }
+.category { border-top:1px solid var(--line); padding:28px 0 34px; }
+.category-title { display:flex; justify-content:space-between; align-items:end; margin-bottom:20px; }
+.category-title p { margin:0 0 7px; color:var(--green); font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.category-title h3 { margin:0; font:400 26px/1.1 Georgia,serif; }
+.category-title>span { color:rgba(32,40,32,.7); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+.ingredient-scroll { position:relative; }
+.scroll-hint { display:none; }
+.ingredient-row { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; padding:6px 2px; }
+.ingredient-card { position:relative; min-width:0; min-height:178px; padding:10px 10px 14px; display:flex; flex-direction:column; align-items:flex-start; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.72); color:var(--ink); cursor:pointer; text-align:left; transition:transform .18s ease,border-color .18s ease,background .18s ease; }
+.ingredient-card:hover:not(.is-selected) { transform:translateY(-2px); border-color:rgba(32,35,31,.45); }
+.ingredient-card:focus-visible { outline:3px solid var(--lime); outline-offset:2px; }
+.ingredient-card.is-selected { border-color:var(--green); background:var(--selected); box-shadow:inset 0 0 0 1px var(--green); transform:none; }
+.ingredient-visual { width:100%; height:92px; display:grid; place-items:center; overflow:hidden; border-radius:6px; background:rgba(255,255,255,.5); }
+.ingredient-visual img { width:100%; height:100%; object-fit:contain; }
+.ingredient-card strong { margin-top:9px; font-size:14px; line-height:1.2; }
+.ingredient-card small { margin-top:4px; color:rgba(32,40,32,.7); font-size:12.5px; line-height:1.3; }
+.check { position:absolute; top:8px; right:8px; width:22px; height:22px; display:none; place-items:center; border-radius:4px; background:var(--lime); color:var(--ink); font-size:11px; }
+.is-selected .check { display:grid; }
+.result-card { position:sticky; top:22px; overflow:hidden; padding:30px; border:1px solid var(--line); border-radius:14px; background:rgba(247,246,241,.94); box-shadow:none; }
+.receipt-top { display:flex; justify-content:space-between; align-items:start; }
+.receipt-top>span { min-width:44px; height:34px; display:grid; place-items:center; border-radius:5px; background:var(--lime); font-size:13px; font-weight:800; }
+.result-card>h2 { margin:2px 0 18px; font-size:41px; line-height:.94; }
+.combination-note { margin:-2px 0 20px; padding:14px 15px; border:1px solid #efbca9; border:1px solid color-mix(in srgb,var(--orange) 38%,white); border-radius:7px; background:#fce9e2; background:color-mix(in srgb,var(--orange) 13%,white); color:var(--ink); font-size:13.5px; line-height:1.5; }
+.combination-note b { display:block; margin-bottom:2px; font-size:14px; line-height:1.3; }
+.mini-bowl { height:98px; margin:8px 0 26px; padding:8px; display:flex; align-items:center; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.72); overflow:hidden; }
+.mini-bowl>span { flex:1 1 0; min-width:0; height:78px; display:block; }
+.mini-bowl .ingredient-visual { height:78px; border-radius:0; background:transparent; }
+.method h3,.shopping h3 { margin:0; font:400 21px Georgia,serif; }
+.method ol { list-style:none; margin:16px 0 22px; padding:0; }
+.method li { display:grid; grid-template-columns:26px 1fr; gap:8px; padding:9px 0; border-top:1px solid rgba(32,35,31,.12); }
+.method li>span { width:20px; height:20px; display:grid; place-items:center; border-radius:50%; border:1px solid var(--ink); font-size:10px; }
+.method li p { margin:0; font-size:14px; line-height:1.55; }
+.shopping { padding:18px; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.82); }
+.shopping-title { display:flex; justify-content:space-between; align-items:center; }
+.shopping-title button { min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:6px; background:var(--orange); color:#fff; padding:10px 13px; font-size:12px; font-weight:800; cursor:pointer; transition:background .18s ease,transform .18s ease; }
+.shopping-title button:hover { background:var(--green); transform:translateY(-1px); }
+.shopping-title button:focus-visible { outline:3px solid var(--lime); outline-offset:2px; }
+.copy-icon { position:relative; width:13px; height:13px; display:block; border:1.5px solid currentColor; border-radius:2px; }
+.copy-icon::before { content:""; position:absolute; width:9px; height:9px; top:-4px; left:-4px; border:1.5px solid currentColor; border-radius:2px; background:inherit; }
+.shopping ul { list-style:none; padding:0; margin:13px 0 0; }
+.shopping li { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-top:1px dotted rgba(32,40,32,.28); font-size:13px; line-height:1.35; }
+.shopping li b { white-space:nowrap; }
+.manual-copy { margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
+.manual-copy p { margin:0 0 8px; font-size:13px; line-height:1.45; }
+.manual-copy textarea { width:100%; min-height:132px; resize:vertical; border:1px solid var(--green); border-radius:6px; background:var(--paper); color:var(--ink); padding:10px; font:16px/1.45 Arial,Helvetica,sans-serif; }
+.manual-copy textarea:focus { outline:3px solid var(--lime); outline-offset:2px; }
+.tip { margin:14px 4px 0; color:rgba(32,40,32,.68); font-size:12px; line-height:1.5; }
+footer { min-height:230px; padding:56px 5vw; display:grid; grid-template-columns:1fr 1fr; align-items:start; background:var(--ink); color:var(--paper); }
+footer p { margin:0; font:italic 30px/1.05 Georgia,serif; }
+
+@media (max-width:1050px) { .hero{padding-left:5vw;padding-right:5vw}.builder-grid{grid-template-columns:minmax(0,1fr) 360px;gap:28px}.ingredient-row{grid-template-columns:repeat(4,minmax(0,1fr))} }
+@media (max-width:820px) {
+  .site-header{height:58px}.site-header p{display:none}.brand-logo{width:106px}.hero{min-height:auto;padding:58px 20px 62px}.hero h1{font-size:clamp(49px,15vw,78px)}.intro{margin:24px 0;font-size:15px}.builder-shell{padding:58px 0 70px}.builder-heading{display:block;margin:0 20px 42px}.builder-heading>p{margin-top:20px}.builder-grid{display:block}.category{padding:24px 0 27px}.category-title{margin:0 20px;align-items:end}.category-title>span{max-width:120px;text-align:right}.scroll-hint{width:max-content;max-width:calc(100% - 40px);margin:14px auto 10px;padding:7px 12px;display:flex;justify-content:center;align-items:center;gap:6px;border-radius:999px;background:var(--selected);color:var(--green);font-size:12px;font-weight:800;letter-spacing:.02em;text-align:center}.scroll-hint span{font-size:17px;line-height:1}.ingredient-scroll::after{content:"";position:absolute;z-index:2;top:0;right:0;bottom:0;width:42px;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.96))}.ingredient-row{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:6px 52px 12px 20px;scroll-snap-type:x mandatory;scrollbar-width:none}.ingredient-row::-webkit-scrollbar{display:none}.ingredient-card{min-width:148px;min-height:194px;scroll-snap-align:start}.result-card{position:relative;top:auto;margin:42px 15px 0;padding:26px}.mini-bowl{margin:8px 0 26px;padding:6px}.mini-bowl>span{height:70px}.mini-bowl .ingredient-visual{height:70px}.shopping-title{align-items:flex-start;gap:12px}.shopping-title button{flex:0 0 auto}.method li p{font-size:14px}.shopping li{font-size:13px}.tip{font-size:12px}footer{grid-template-columns:1fr 1fr;gap:45px 20px}.footer-logo{width:145px}
+}
+@media (max-width:440px) { .hero h1{font-size:52px}.builder-heading h2{font-size:44px}.result-card>h2{font-size:36px}footer p{font-size:24px} }
+@media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto}*{transition:none!important} }
+</style>
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="brand-logo" href="#top" aria-label="SEKTA, на главную"><img src="sekta-logo-transparent.png" alt="#sekta" width="440" height="96"></a>
+      <p>Еда, которая собирается под тебя</p>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="kicker">Интерактивная шпаргалка</p>
+        <h1>Собери салат,<br><em>который хочется съесть</em></h1>
+        <p class="intro">6 простых шагов, и ты можешь съесть крутой, яркий, хрустящий, сытный салат.</p>
+        <a class="start-link" href="#builder"><span>Начать собирать</span><b>↓</b></a>
+      </div>
+    </section>
+
+    <section class="builder-shell" id="builder">
+      <div class="builder-heading">
+        <div><p class="kicker">Конструктор</p><h2>Выбирай по одному продукту<br>из каждого ряда</h2><p>Мы указали объём и вес продукта. Выбирай тот формат, который тебе удобнее.</p></div>
+        <p>Нажимай на карточки. Рецепт<br>и список покупок обновятся сами.</p>
+      </div>
+      <div class="builder-grid">
+        <div class="choices" id="choices"></div>
+        <aside class="result-card" aria-live="polite">
+          <div class="receipt-top"><p class="kicker">Твой салат</p><span id="selection-count">6/6</span></div>
+          <h2 id="result-title"></h2>
+          <p class="combination-note" id="pairing-advice" hidden></p>
+          <div class="mini-bowl" id="mini-bowl"></div>
+          <div class="method"><h3>Как собрать</h3><ol id="method-list"></ol></div>
+          <div class="shopping" id="shopping">
+            <div class="shopping-title"><h3>Список покупок</h3><button id="copy-button" type="button"><span class="copy-icon" aria-hidden="true"></span><span id="copy-label">Скопировать</span></button></div>
+            <ul id="shopping-list"></ul>
+          </div>
+          <p class="tip">Можно сохранить список в заметки и взять с собой в магазин.</p>
+        </aside>
+      </div>
+    </section>
+
+    <footer><span class="brand-logo footer-logo"><img src="sekta-logo-transparent.png" alt="#sekta" width="440" height="96" loading="lazy" decoding="async"></span><p>Твой самый<br>классный салат</p></footer>
+  </main>
+
+  <script>
+  (function () {
+    "use strict";
+    var categories = [{"id":"base","eyebrow":"Шаг 1. Основа","title":"Выбери зелень","hint":"2 большие горсти","items":[{"id":"romaine","name":"Романо","amount":"2 горсти, 100 г","note":"нарви руками"},{"id":"arugula","name":"Рукола","amount":"2 горсти, 70 г","note":"оставь целой"},{"id":"spinach","name":"Шпинат","amount":"2 горсти, 80 г","note":"оставь целым"},{"id":"cabbage","name":"Молодая капуста","amount":"2 горсти, 120 г","note":"тонко нашинкуй"}]},{"id":"protein","eyebrow":"Шаг 2. Сытность","title":"Добавь источник белка","hint":"1 ладонь","items":[{"id":"chicken","name":"Курица","amount":"1 ладонь, 120 г","note":"нарежь ломтиками"},{"id":"tuna","name":"Тунец","amount":"1 ладонь, 120 г","note":"слей жидкость"},{"id":"egg","name":"Варёные яйца","amount":"2 шт., 100 г","note":"разрежь на четвертинки"},{"id":"chickpea","name":"Нут","amount":"¾ стакана, 130 г","note":"промой и обсуши"},{"id":"tofu","name":"Тофу","amount":"1 ладонь, 120 г","note":"обжарь до золотистости"}]},{"id":"juicy","eyebrow":"Шаг 3. Сочность","title":"Выбери сочное","hint":"1 кулак","items":[{"id":"tomato","name":"Томаты","amount":"1 кулак, 150 г","note":"нарежь крупно"},{"id":"cucumber","name":"Огурец","amount":"1 кулак, 120 г","note":"нарежь полукружьями"},{"id":"orange","name":"Апельсин","amount":"1 шт., 150 г","note":"очисти и нарежь"},{"id":"pear","name":"Груша","amount":"1 шт., 150 г","note":"нарежь тонкими дольками"},{"id":"peach","name":"Персик","amount":"1 шт., 150 г","note":"нарежь дольками"}]},{"id":"crunch","eyebrow":"Шаг 4. Текстура","title":"Добавь хруста","hint":"1 или 2 ст. ложки","items":[{"id":"radish","name":"Редис","amount":"5 шт., 80 г","note":"нарежь тонко"},{"id":"seeds","name":"Семена подсолнечника","amount":"2 ст. л., 20 г","note":"подсуши на сковороде"},{"id":"walnut","name":"Грецкий орех","amount":"1 горсть, 20 г","note":"крупно поруби"},{"id":"croutons","name":"Сухарики","amount":"1 горсть, 30 г","note":"добавь перед подачей"}]},{"id":"fat","eyebrow":"Шаг 5. Баланс","title":"Добавь нежности","hint":"1 небольшой акцент","items":[{"id":"avocado","name":"Авокадо","amount":"½ шт., 80 г","note":"нарежь кубиком"},{"id":"feta","name":"Фета","amount":"3 ст. л., 40 г","note":"раскроши"},{"id":"mozzarella","name":"Моцарелла","amount":"4 шарика, 60 г","note":"разорви руками"},{"id":"olive","name":"Оливки","amount":"8 шт., 40 г","note":"разрежь пополам"}]},{"id":"dressing","eyebrow":"Шаг 6. Финальный штрих","title":"Соедини с заправкой","hint":"смешай в баночке","items":[{"id":"lemon","name":"Лимон + масло","amount":"1 ст. л. сока, 2 ст. л. масла","note":"смешай лимонный сок, оливковое масло и соль","shoppingItems":[{"name":"Лимонный сок","amount":"1 ст. л."},{"name":"Оливковое масло","amount":"2 ст. л."},{"name":"Соль","amount":"по вкусу"}]},{"id":"mustard","name":"Мёд + горчица","amount":"по 1 ч. л. и 1 ст. л. масла","note":"смешай мёд, горчицу и оливковое масло","shoppingItems":[{"name":"Мёд","amount":"1 ч. л."},{"name":"Горчица","amount":"1 ч. л."},{"name":"Оливковое масло","amount":"1 ст. л."}]},{"id":"yogurt","name":"Йогурт + соль и перец","amount":"2 ст. л. йогурта","note":"смешай йогурт, соль, перец и немного лимонного сока","shoppingItems":[{"name":"Йогурт","amount":"2 ст. л."},{"name":"Соль и перец","amount":"по вкусу"},{"name":"Лимонный сок","amount":"по вкусу"}]},{"id":"tahini","name":"Тахини + лайм","amount":"по 1 ст. л. и 1 ст. л. воды","note":"смешай тахини, сок лайма и воду","shoppingItems":[{"name":"Тахини","amount":"1 ст. л."},{"name":"Сок лайма","amount":"1 ст. л."},{"name":"Вода","amount":"1 ст. л."}]}]}];
+    var recipeNames = {"chicken":"курицей","tuna":"тунцом","egg":"яйцами","chickpea":"нутом","tofu":"тофу","tomato":"томатами","cucumber":"огурцом","orange":"апельсином","pear":"грушей","peach":"персиком"};
+    var selection = {};
+    var shoppingText = "";
+
+    categories.forEach(function (category) {
+      selection[category.id] = category.items[0].id;
+    });
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (character) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[character];
+      });
+    }
+
+    function visual(item) {
+      return '<span class="ingredient-visual" aria-hidden="true"><img src="ingredients/' + escapeHtml(item.id) + '.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span>';
+    }
+
+    function selectedItems() {
+      return categories.map(function (category) {
+        return category.items.find(function (item) { return item.id === selection[category.id]; });
+      }).filter(Boolean);
+    }
+
+    function shoppingItems(items) {
+      return items.reduce(function (result, item) {
+        return result.concat(item.shoppingItems || [{ name: item.name, amount: item.amount }]);
+      }, []);
+    }
+
+    function renderChoices() {
+      document.getElementById("choices").innerHTML = categories.map(function (category) {
+        var cards = category.items.map(function (item) {
+          var active = selection[category.id] === item.id;
+          return '<button class="ingredient-card' + (active ? ' is-selected' : '') + '" type="button" role="radio" aria-checked="' + active + '" data-category="' + escapeHtml(category.id) + '" data-ingredient="' + escapeHtml(item.id) + '">' + visual(item) + '<strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.amount) + '</small><span class="check">✓</span></button>';
+        }).join("");
+        return '<section class="category"><div class="category-title"><div><p>' + escapeHtml(category.eyebrow) + '</p><h3>' + escapeHtml(category.title) + '</h3></div><span>' + escapeHtml(category.hint) + '</span></div><p class="scroll-hint" aria-hidden="true">Листай варианты <span>→</span></p><div class="ingredient-scroll"><div class="ingredient-row" role="radiogroup" aria-label="' + escapeHtml(category.title) + '">' + cards + '</div></div></section>';
+      }).join("");
+    }
+
+    function renderResult() {
+      var items = selectedItems();
+      var purchases = shoppingItems(items);
+      var fruitSelected = ["orange", "pear", "peach"].indexOf(selection.juicy) !== -1;
+      var advice = "";
+      if (fruitSelected && selection.protein === "tuna") advice = "К тунцу лучше подойдут томаты или огурец. Либо выбери другой белковый компонент.";
+      if (fruitSelected && selection.protein === "egg") advice = "К яйцам лучше подойдут томаты или огурец. Либо выбери другой белковый компонент.";
+
+      document.getElementById("selection-count").textContent = items.length + "/6";
+      document.getElementById("result-title").innerHTML = "Салат<br><em>с " + escapeHtml(recipeNames[items[1].id]) + " и " + escapeHtml(recipeNames[items[2].id]) + "</em>";
+
+      var adviceNode = document.getElementById("pairing-advice");
+      adviceNode.hidden = !advice;
+      adviceNode.innerHTML = advice ? "<b>Сочетание не самое гармоничное.</b> " + escapeHtml(advice) : "";
+      document.getElementById("mini-bowl").innerHTML = items.map(function (item) { return "<span>" + visual(item) + "</span>"; }).join("");
+
+      var preparation = items.slice(0, 3).map(function (item) { return escapeHtml(item.name) + ": " + escapeHtml(item.note) + "."; }).join(" ");
+      var finishing = items.slice(3).map(function (item) { return escapeHtml(item.name) + ": " + escapeHtml(item.note) + "."; }).join(" ");
+      document.getElementById("method-list").innerHTML = '<li><span>1</span><p><b>Подготовь.</b> ' + preparation + '</p></li><li><span>2</span><p><b>Смешай.</b> Сложи основу, белковый продукт и сочный ингредиент в большую миску.</p></li><li><span>3</span><p><b>Заверши.</b> ' + finishing + '</p></li>';
+
+      document.getElementById("shopping-list").innerHTML = purchases.map(function (item) {
+        return "<li><span>" + escapeHtml(item.name) + "</span><b>" + escapeHtml(item.amount) + "</b></li>";
+      }).join("");
+      shoppingText = "Мой салат SEKTA\n" + purchases.map(function (item) { return item.name + ": " + item.amount; }).join("\n");
+      document.getElementById("copy-label").textContent = "Скопировать";
+      var manual = document.querySelector(".manual-copy");
+      if (manual) manual.remove();
+    }
+
+    function copyWithSelection(text) {
+      var textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.readOnly = true;
+      textarea.style.position = "fixed";
+      textarea.style.top = "0";
+      textarea.style.left = "-9999px";
+      textarea.style.fontSize = "16px";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+      var copied = false;
+      try { copied = document.execCommand("copy"); } catch (error) { copied = false; }
+      textarea.remove();
+      return copied;
+    }
+
+    function showManualCopy() {
+      var existing = document.querySelector(".manual-copy");
+      if (existing) existing.remove();
+      var holder = document.createElement("div");
+      holder.className = "manual-copy";
+      holder.setAttribute("role", "status");
+      holder.innerHTML = '<p>Автоматическое копирование недоступно. Нажми на текст и выбери «Скопировать».</p><textarea readonly aria-label="Список покупок для ручного копирования"></textarea>';
+      document.getElementById("shopping").appendChild(holder);
+      var textarea = holder.querySelector("textarea");
+      textarea.value = shoppingText;
+      textarea.addEventListener("focus", function () { textarea.select(); });
+      window.requestAnimationFrame(function () { textarea.focus(); textarea.select(); });
+    }
+
+    function copyList() {
+      if (copyWithSelection(shoppingText)) {
+        document.getElementById("copy-label").textContent = "Скопировано ✓";
+        return;
+      }
+      if (!navigator.clipboard || !navigator.clipboard.writeText || !window.isSecureContext) {
+        showManualCopy();
+        return;
+      }
+      navigator.clipboard.writeText(shoppingText).then(function () {
+        document.getElementById("copy-label").textContent = "Скопировано ✓";
+      }).catch(showManualCopy);
+    }
+
+    document.getElementById("choices").addEventListener("click", function (event) {
+      var button = event.target.closest(".ingredient-card");
+      if (!button) return;
+      selection[button.dataset.category] = button.dataset.ingredient;
+      var group = button.closest(".ingredient-row");
+      group.querySelectorAll(".ingredient-card").forEach(function (card) {
+        var active = card === button;
+        card.classList.toggle("is-selected", active);
+        card.setAttribute("aria-checked", String(active));
+      });
+      renderResult();
+    });
+    document.getElementById("copy-button").addEventListener("click", copyList);
+
+    renderChoices();
+    renderResult();
+  }());
+  </script>
+</body>
+</html>

@@ -76,44 +76,45 @@
     }
     @media(max-width:370px){.brand img{width:136px}.season{font-size:8px;padding:6px 7px}.hero{padding:23px 18px}.hero-visual,.hero-visual img{min-height:200px;height:200px}.winter-strip{min-height:205px}.winter-strip strong{font-size:28px}}
 
+      .topbar{justify-content:center}.season{display:none}.hero{display:block;min-height:0;margin:30px 0 54px;padding:clamp(34px,6vw,70px);text-align:center}.hero-copy{max-width:820px;margin:0 auto}.hero h1{margin-inline:auto}.hero .intro{margin:24px auto 26px}.hero .button{margin-inline:auto}.winter-strip{height:clamp(240px,34vw,390px);min-height:0}.winter-strip>img{object-position:center 57%}.winter-strip figcaption{justify-content:flex-start;padding:clamp(20px,4vw,42px);background:linear-gradient(180deg,rgba(38,20,72,.72),rgba(49,27,88,.24) 54%,transparent 76%)}@media(max-width:700px){.shell{width:min(100% - 28px,1280px)}.topbar{height:70px}.brand img{width:112px}.hero{margin:18px 0 40px;padding:34px 22px}.winter-strip{height:250px;margin-bottom:48px}.winter-strip figcaption{padding:20px}.winter-strip figcaption strong{max-width:19ch;font-size:clamp(24px,7vw,36px);line-height:1.03}.winter-strip>img{object-position:center 58%}}
   </style>
 </head>
 <body>
-<header class="shell topbar"><div class="brand"><img src="assets/softpower-purple.png" alt="SEKTA Soft Power"></div><div class="season">Soft Power: зима 2026</div></header>
+<header class="shell topbar"><div class="brand"><img src="assets/softpower-purple.png" alt="SEKTA Soft Power"></div></header>
 <main class="shell">
-  <section class="hero" id="top"><div class="hero-copy"><p class="eyebrow">Интерактивная шпаргалка: 1 неделя</p><h1>Собери свою<br><em>тёплую тарелку</em></h1><p class="intro">Когда за окном холодно, особенно приятно поесть что-то тёплое и сытное. Выбирай привычные продукты и собирай сочетание, которое хочется повторить.</p><a class="button" href="#builder"><span>Начать собирать</span><b>↓</b></a></div><figure class="hero-visual"><img src="assets/warm-dish.webp" alt="Тёплая тарелка с овощами и крупой на зимнем столе"><span class="visual-tag">ТЕПЛО, КОТОРОЕ МОЖНО СОБРАТЬ</span></figure></section>
-  <section class="how" aria-label="Как работает конструктор"><article class="how-card"><h2>Простая формула</h2><p>Собери один приём пищи из четырёх частей. Выбирай по одному варианту — или добавляй больше того, что тебе нравится.</p><div class="formula"><span>Основа</span><span>Сытный компонент</span><span>Овощи</span><span>Вкус</span></div></article><article class="how-card"><h2>Не нужно усложнять</h2><p>Подойдут обычные продукты, заморозка и то, что уже есть дома. Это примерная сборка на одного человека: количество можно менять под свой аппетит.</p></article></section><figure class="winter-strip"><img src="assets/winter-room.webp" alt="Светлая зимняя гостиная с ковриком для практики"><figcaption><span class="winter-pill">SOFT POWER: ЗИМА 2026</span><strong>Немного места для себя в зимнем дне.</strong></figcaption></figure>
+  <section class="hero" id="top"><div class="hero-copy"><h1>Собери свою<br><em>тёплую тарелку</em></h1><p class="intro">Когда за окном холодно, особенно приятно поесть что-то тёплое и сытное. Выбирай привычные продукты и собирай сочетание, которое хочется повторить.</p><a class="button" href="#builder"><span>Начать собирать</span><b>↓</b></a></div></section>
+  <section class="how" aria-label="Как работает конструктор"><article class="how-card"><h2>Простая формула</h2><p>Собери один приём пищи из четырёх частей. Выбирай по одному варианту — или добавляй больше того, что тебе нравится.</p><div class="formula"><span>Основа</span><span>Сытный компонент</span><span>Овощи</span><span>Вкус</span></div></article><article class="how-card"><h2>Всё просто</h2><p>Бери обычные продукты. Можно использовать заморозку или то, что уже есть дома. Это примерное количество ингредиентов на одного человека. Всё можно менять под свой аппетит.</p></article></section><figure class="winter-strip"><img src="assets/winter-room.webp" alt="Светлая зимняя гостиная с ковриком для практики"><figcaption><strong>Немного места для себя в зимнем дне.</strong></figcaption></figure>
 <section class="builder" id="builder"><div class="shell"><div class="builder-title"><div><p class="eyebrow">Конструктор</p><h2>Выбирай, сочетай,<br>сохраняй удачное</h2></div><p>Нажимай на карточки: можно выбрать несколько продуктов внутри категории. Сборка, способ приготовления и список покупок обновятся автоматически.</p></div><div class="builder-grid"><div class="choices" id="choices"></div><aside class="result" aria-live="polite"><div class="result-top"><p class="eyebrow">Твоя тёплая тарелка</p><span class="count" id="count"></span></div><h2 id="title"></h2><div class="bowl" id="bowl" aria-label="Выбранные продукты"></div><div class="recipe"><h3>Как собрать</h3><ol id="steps"></ol></div><div class="shopping"><div class="shopping-title"><h3>Список продуктов</h3><button class="copy" id="copy" type="button">Скопировать</button></div><ul id="list"></ul></div><p class="tip">Сохрани удачное сочетание — в следующий раз можно собрать его из того, что есть дома.</p></aside></div></div></section>
 <footer class="shell foot"><strong class="brand"><img src="assets/softpower-purple.png" alt="SEKTA Soft Power"></strong><span>Soft Power 2026: маленькие опоры на зиму</span></footer>
 <script>
 (()=>{'use strict';
 const catalog=[
- {id:'base',step:'Шаг 1: Основа',title:'Выбери основу',hint:'примерно 150 г в готовом виде',items:[
-  {id:'buckwheat',name:'Гречка',amount:'150 г готовой',note:'свари до мягкости',img:'assets/ingredients/buckwheat.jpg',url:'https://mdkprod.ru/magazin/product/goroh-uvelka-droblenyj-5paketikov-po-100g'},
-  {id:'rice',name:'Рис',amount:'150 г готового',note:'свари по инструкции на упаковке',img:'assets/ingredients/rice.jpg',url:'https://magnit.ru/product/1000225668-ris_kruglozernyy_uvelka_krasnodarskiy_800g'},
-  {id:'quinoa',name:'Киноа',amount:'150 г готовой',note:'промой и свари до мягкости',img:'assets/ingredients/quinoa.jpg?v=2',url:''},
-  {id:'potato',name:'Картофель',amount:'200 г',note:'запеки дольками или отвари',img:'assets/ingredients/potato.jpg',url:'https://www.dekamarkt.nl/producten/aardappelen-groente-fruit/aardappelen/voordeel%20aardappelen%20kruimig/49887'},
-  {id:'barley',name:'Перловка',amount:'150 г готовой',note:'свари до мягкости',img:'assets/ingredients/barley.jpg',url:'https://borschandbeyond.com/products/uvelka-grains-pearl-barley-perlovaya-800g'}]},
- {id:'protein',step:'Шаг 2: Сытность',title:'Добавь сытный компонент',hint:'примерно 100–130 г',items:[
-  {id:'chicken',name:'Курица',amount:'120 г',note:'приготовь и нарежь кусочками',img:'assets/ingredients/chicken.jpg',url:'https://t-j.ru/cooking-issue-kak-vkusno-prigotovit-kurinuiu-grudku/'},
-  {id:'eggs',name:'Яйца',amount:'2 шт.',note:'свари вкрутую и разрежь пополам',img:'assets/ingredients/eggs.jpg',url:'https://vodovoz.ru/catalog/yaytsa/57532/'},
-  {id:'tofu',name:'Тофу',amount:'120 г',note:'нарежь и подрумянь на сковороде',img:'assets/ingredients/tofu.jpg',url:'https://online.metro-cc.ru/products/250g-tofu-selskiy-dom-klassicheskiy'},
-  {id:'chickpeas',name:'Нут',amount:'130 г без жидкости',note:'промой, обсуши и прогрей со специями',img:'assets/ingredients/chickpeas.jpg',url:'https://lenta.com/product/nut-zhb-rossiya-360g-697108/'},
-  {id:'trout',name:'Слабосолёная форель',amount:'120 г',note:'нарежь ломтиками и добавь сверху перед подачей',img:'assets/ingredients/trout.jpg',url:'https://online.metro-cc.ru/products/forel-fine-life-malosolenaya-300-g'}]},
+ {id:'base',step:'Шаг 1: Основа',title:'Выбери основу',hint:'выбери одну основу',items:[
+  {id:'buckwheat',name:'Гречка',amount:'150 г готовой',note:'свари до мягкости',img:'assets/ingredients/buckwheat.jpg'},
+  {id:'rice',name:'Рис',amount:'150 г готового',note:'свари по инструкции на упаковке',img:'assets/ingredients/rice.jpg'},
+  {id:'quinoa',name:'Киноа',amount:'150 г готовой',note:'промой и свари до мягкости',img:'assets/ingredients/quinoa.jpg?v=2'},
+  {id:'potato',name:'Картофель',amount:'200 г',note:'запеки дольками или отвари',img:'assets/ingredients/potato.jpg'},
+  {id:'barley',name:'Перловка',amount:'150 г готовой',note:'свари до мягкости',img:'assets/ingredients/barley.jpg'}]},
+ {id:'protein',step:'Шаг 2: Сытность',title:'Добавь сытный компонент',hint:'рекомендуем выбрать 1–2',items:[
+  {id:'chicken',name:'Курица',amount:'120 г',note:'приготовь и нарежь кусочками',img:'assets/ingredients/chicken.jpg'},
+  {id:'eggs',name:'Яйца',amount:'2 шт.',note:'свари вкрутую и разрежь пополам',img:'assets/ingredients/eggs.jpg'},
+  {id:'tofu',name:'Тофу',amount:'120 г',note:'нарежь и подрумянь на сковороде',img:'assets/ingredients/tofu.jpg'},
+  {id:'chickpeas',name:'Нут',amount:'130 г без жидкости',note:'промой, обсуши и прогрей со специями',img:'assets/ingredients/chickpeas.jpg'},
+  {id:'trout',name:'Слабосолёная форель',amount:'120 г',note:'нарежь ломтиками и добавь сверху перед подачей',img:'assets/ingredients/trout.jpg'}]},
  {id:'veg',step:'Шаг 3: Овощи',title:'Выбери овощи',hint:'1–2 горсти или больше по вкусу',items:[
-  {id:'pumpkin',name:'Тыква',amount:'150 г',note:'запеки кубиками до мягкости',img:'assets/ingredients/pumpkin.jpg',url:'https://www.miaspesa.it/spesa/frutta-verdura/ortofrutta-castello-srl/65701-zucca-confezionata.html'},
-  {id:'broccoli',name:'Брокколи',amount:'150 г',note:'приготовь на пару или запеки',img:'assets/ingredients/broccoli.jpg',url:'https://silpo.ua/product/kapusta-silpo-brokoli-sutsvittia-993498'},
-  {id:'mushroom',name:'Шампиньоны',amount:'120 г',note:'нарежь и обжарь до румяности',img:'assets/ingredients/mushroom.jpg',url:'https://silpo.ua/product/gryby-shampiniony-zelena-kraina-svizhi-370658'},
-  {id:'carrot',name:'Морковь',amount:'1 шт.',note:'запеки брусочками или натри и быстро прогрей',img:'assets/ingredients/carrot.jpg',url:'https://zakupy.auchan.pl/products/marchew-warzywa-auchan-1-kg/00294562'},
-  {id:'cabbage',name:'Капуста',amount:'150 г',note:'нашинкуй и потуши до мягкости',img:'assets/ingredients/cabbage.jpg',url:'https://www.dekamarkt.nl/producten/aardappelen-groente-fruit/groente/dekavers-biologisch-biologische-witte-kool/96153'},
-  {id:'daikon',name:'Дайкон',amount:'150 г',note:'нарежь брусочками и быстро прогрей',img:'assets/ingredients/daikon.jpg?v=2',url:''}]},
- {id:'taste',step:'Шаг 4: Вкус',title:'Добавь вкусовой акцент',hint:'1–2 небольших добавки',items:[
-  {id:'kimchi',name:'Кимчи',amount:'1–2 ст. л.',note:'добавь рядом с горячими продуктами',img:'assets/ingredients/kimchi.jpg',url:'https://www.mitrofresh.com/en/category/tofu-preserved/kimchi-rice-cake'},
-  {id:'soy',name:'Соевый соус',amount:'1 ч. л. или по вкусу',note:'добавь немного в готовую тарелку',img:'assets/ingredients/soy.jpg',url:'https://metro.zakaz.ua/ru/categories/sauce-metro/package%3Dglass-bottle/'},
-  {id:'rice-vinegar',name:'Рисовый уксус',amount:'1–2 ч. л.',note:'добавь в готовую тарелку или в заправку',img:'assets/ingredients/rice-vinegar.jpg?v=2',url:''},
-  {id:'sesame',name:'Кунжут',amount:'1 ч. л.',note:'посыпь сверху',img:'assets/ingredients/sesame.jpg',url:'https://veganspot.ru/food/greensprouting/kunzhut-belyj-semena-150g.html'},
-  {id:'lemon',name:'Лимонный сок',amount:'1–2 ч. л.',note:'добавь в самом конце для свежести',img:'assets/ingredients/lemon.jpg',url:'https://www.instacart.com/products/16383399-bagged-lemons-2-lbs?retailerSlug=kroger'},
-  {id:'oil',name:'Кунжутное масло',amount:'1 ч. л.',note:'добавь к готовым овощам или основе',img:'assets/ingredients/oil.jpg',url:'https://morganic.ru/product/maslo-kunzhutnoe-syrodavlennoe-pravilnyj-gurman-250-ml/'}]}
+  {id:'pumpkin',name:'Тыква',amount:'150 г',note:'запеки кубиками до мягкости',img:'assets/ingredients/pumpkin.jpg'},
+  {id:'broccoli',name:'Брокколи',amount:'150 г',note:'приготовь на пару или запеки',img:'assets/ingredients/broccoli.jpg'},
+  {id:'mushroom',name:'Шампиньоны',amount:'120 г',note:'нарежь и обжарь до румяности',img:'assets/ingredients/mushroom.jpg'},
+  {id:'carrot',name:'Морковь',amount:'1 шт.',note:'запеки брусочками или натри и быстро прогрей',img:'assets/ingredients/carrot.jpg'},
+  {id:'cabbage',name:'Капуста',amount:'150 г',note:'нашинкуй и потуши до мягкости',img:'assets/ingredients/cabbage.jpg'},
+  {id:'daikon',name:'Дайкон',amount:'150 г',note:'нарежь брусочками и быстро прогрей',img:'assets/ingredients/daikon.jpg?v=2'}]},
+ {id:'taste',step:'Шаг 4: Вкус',title:'Добавь вкусовой акцент',hint:'1–2 добавки',items:[
+  {id:'kimchi',name:'Кимчи',amount:'1–2 ст. л.',note:'добавь рядом с горячими продуктами',img:'assets/ingredients/kimchi.jpg'},
+  {id:'soy',name:'Соевый соус',amount:'1 ч. л. или по вкусу',note:'добавь немного в готовую тарелку',img:'assets/ingredients/soy.jpg'},
+  {id:'rice-vinegar',name:'Рисовый уксус',amount:'1–2 ч. л.',note:'добавь в готовую тарелку или в заправку',img:'assets/ingredients/rice-vinegar.jpg?v=2'},
+  {id:'sesame',name:'Кунжут',amount:'1 ч. л.',note:'посыпь сверху',img:'assets/ingredients/sesame.jpg'},
+  {id:'lemon',name:'Лимонный сок',amount:'1–2 ч. л.',note:'добавь в самом конце для свежести',img:'assets/ingredients/lemon.jpg'},
+  {id:'oil',name:'Кунжутное масло',amount:'1 ч. л.',note:'добавь к готовым овощам или основе',img:'assets/ingredients/oil.jpg'}]}
 ];
 const selection={};catalog.forEach(c=>selection[c.id]=[c.items[0].id]);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -123,7 +124,7 @@ function render(){
  document.getElementById('choices').innerHTML=catalog.map(function(c){
   const cards=c.items.map(function(i){
    const on=selection[c.id].includes(i.id);
-   return '<div class="item-card"><button type="button" class="item'+(on?' selected':'')+'" aria-pressed="'+on+'" data-cat="'+c.id+'" data-id="'+i.id+'">'+img(i)+'<strong>'+esc(i.name)+'</strong><small>'+esc(i.amount)+'</small><span class="check" aria-hidden="true">✓</span></button>'+(i.url?'<a class="catalog" href="'+esc(i.url)+'" target="_blank" rel="noopener noreferrer">каталог товара ↗</a>':'')+'</div>';
+   return '<div class="item-card"><button type="button" class="item'+(on?' selected':'')+'" aria-pressed="'+on+'" data-cat="'+c.id+'" data-id="'+i.id+'">'+img(i)+'<strong>'+esc(i.name)+'</strong><small>'+esc(i.amount)+'</small><span class="check" aria-hidden="true">✓</span></button></div>';
   }).join('');
   return '<section class="category"><div class="category-head"><div><p>'+esc(c.step)+'</p><h3>'+esc(c.title)+'</h3></div><small>'+esc(c.hint)+'</small></div><p class="mobile-hint">Листай карточки в сторону →</p><div class="items" role="group" aria-label="'+esc(c.title)+'">'+cards+'</div></section>';
  }).join('');

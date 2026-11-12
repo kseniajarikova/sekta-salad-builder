@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f5ef">
+  <meta name="theme-color" content="#7a4ce0">
   <title>Конструктор тёплой тарелки — Soft Power</title>
   <meta name="description" content="Собери тёплую тарелку из обычных продуктов: основа, сытный компонент, овощи и вкус.">
   <style>
@@ -18,16 +18,73 @@
     @media(max-width:780px){.shell{width:min(100% - 28px,600px)}.topbar{height:62px}.season{font-size:10px}.hero{min-height:470px;margin:16px 0 42px;padding:30px 24px;border-radius:22px}.hero:after{width:270px;height:270px;right:-4%;top:7%}.hero h1{font-size:clamp(52px,14vw,78px)}.hero .intro{font-size:15px}.how{grid-template-columns:1fr;gap:10px;margin-bottom:48px}.how-card{padding:21px 22px}.builder{padding:52px 0 64px}.builder-title{display:block;margin:0 14px 30px}.builder-title p:last-child{margin-top:15px}.builder-grid{display:block}.category{padding:22px 0 26px}.category-head{padding:0 14px}.mobile-hint{display:block;margin:12px 14px 4px;color:var(--muted);font-size:11px}.items{display:flex;overflow-x:auto;gap:10px;padding:7px 24px 12px 14px;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}.items::-webkit-scrollbar{display:none}.item-card{flex:0 0 158px;scroll-snap-align:start}.photo{height:112px}.result{position:relative;top:auto;margin:38px 8px 0;padding:21px}.result h2{font-size:34px}.bowl{min-height:90px}.bowl .photo{width:58px;height:62px}.foot{margin:35px 0 16px}.foot span{max-width:180px;text-align:right}}
     @media(max-width:370px){.hero{min-height:440px;padding:26px 20px}.hero h1{font-size:49px}.category-head h3{font-size:22px}.item-card{flex-basis:145px}.result{padding:17px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  
+    /* Soft Power: vivid winter palette */
+    :root{--ink:#241642;--muted:#716a85;--paper:#f8f6ff;--card:#fff;--line:rgba(55,31,108,.15);--coral:#7545d5;--coral-soft:#e9ddff;--blue:#23aeda;--blue-soft:#d6f7ff;--sage:#e7ff76;--shadow:0 18px 52px rgba(83,48,155,.14);--purple:#7545d5;--purple-deep:#5830b3;--lime:#d8ff55;--sky:#77e0ff;--sky-deep:#25abd8}
+    body{background:var(--paper);color:var(--ink)}
+    .topbar{height:92px;border-color:rgba(91,61,154,.17)}
+    .brand img{width:196px;height:auto}
+    .season{padding:8px 12px;border-radius:999px;background:var(--lime);color:var(--purple-deep);font-weight:800;letter-spacing:.07em}
+    .hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);align-items:center;gap:30px;min-height:500px;background:linear-gradient(125deg,#6033c3 0%,#7e4cdb 52%,#9569ec 100%);border:1px solid rgba(255,255,255,.35);box-shadow:0 22px 55px rgba(81,48,155,.22)}
+    .hero-copy{max-width:650px}
+    .hero .eyebrow{color:#e9ddff}
+    .hero h1{color:#fff;max-width:700px}
+    .hero h1 em{color:var(--lime)}
+    .hero .intro{color:rgba(255,255,255,.9)}
+    .hero-visual{position:relative;min-width:0;min-height:340px;height:100%;margin:0;overflow:hidden;border:1px solid rgba(255,255,255,.5);border-radius:23px;background:#c6f1fa;box-shadow:0 16px 38px rgba(28,18,62,.2)}
+    .hero-visual img{display:block;width:100%;height:100%;min-height:340px;object-fit:cover;object-position:center 62%}
+    .visual-tag{position:absolute;left:16px;bottom:16px;padding:9px 12px;border-radius:999px;background:var(--lime);color:var(--purple-deep);font-size:9px;font-weight:900;letter-spacing:.08em}
+    .button{background:var(--lime);color:var(--purple-deep)}
+    .button b{background:var(--sky);color:var(--purple-deep)}
+    .how-card{border-color:#e5ddf6;box-shadow:0 8px 24px rgba(67,43,116,.06)}
+    .how-card:nth-child(1){border-top:5px solid var(--lime)}
+    .how-card:nth-child(2){border-top:5px solid var(--sky)}
+    .formula span:nth-child(1){border-color:#d6c5ff;background:#f2ecff;color:#5930b3}
+    .formula span:nth-child(2){border-color:#d9ed62;background:#efffb7;color:#46520b}
+    .formula span:nth-child(3){border-color:#9de7fa;background:#e7faff;color:#176b89}
+    .formula span:nth-child(4){border-color:#d6c5ff;background:#f2ecff;color:#5930b3}
+    .winter-strip{position:relative;min-height:240px;margin:0 0 74px;overflow:hidden;border:1px solid #d9cef2;border-radius:24px;background:#eee8f8;box-shadow:var(--shadow)}
+    .winter-strip>img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 59%}
+    .winter-strip figcaption{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:12px;padding:28px;background:linear-gradient(90deg,rgba(38,20,72,.72),rgba(49,27,88,.25) 58%,transparent)}
+    .winter-pill{padding:7px 10px;border-radius:999px;background:var(--lime);color:var(--purple-deep);font-size:10px;font-weight:900;letter-spacing:.08em}
+    .winter-strip strong{max-width:520px;color:#fff;font:400 clamp(28px,4vw,42px)/1.04 Georgia,'Times New Roman',serif;letter-spacing:-.035em}
+    .builder{border-color:#b8eaf7;background:linear-gradient(180deg,#f1fbff 0%,#faf8ff 100%)}
+    .category-head p{color:var(--purple-deep)}
+    .item{border-color:#ded7ed}
+    .item:hover{border-color:var(--purple)}
+    .item.selected{border-color:var(--purple);box-shadow:inset 0 0 0 1px var(--purple);background:#f3edff}
+    .item:focus-visible,.copy:focus-visible,.button:focus-visible{outline-color:var(--sky-deep)}
+    .check{background:var(--lime);color:var(--purple-deep)}
+    .catalog{color:var(--purple-deep)}
+    .result{border:2px solid #dfd2fb;background:#fff;box-shadow:0 18px 50px rgba(80,50,145,.14)}
+    .count{background:var(--lime);color:var(--purple-deep)}
+    .result h2 em{color:var(--purple)}
+    .bowl{background:linear-gradient(135deg,#eee6ff,#dcf8ff 58%,#f3ffce)}
+    .recipe li span{border-color:var(--sky-deep);color:var(--purple-deep)}
+    .shopping{border-color:#c9eff8;background:#f4fcff}
+    .copy{background:var(--purple);color:#fff}
+    .foot{border-top:1px solid #ddd4f2}
+    .foot .brand img{width:168px}
+    @media(max-width:780px){
+      .topbar{height:72px}.brand img{width:156px}.season{padding:6px 9px;font-size:9px}
+      .hero{grid-template-columns:1fr;gap:22px;min-height:0;margin:16px 0 42px;padding:28px 24px}
+      .hero-copy{max-width:620px}.hero-visual{min-height:225px;height:225px;border-radius:18px}
+      .hero-visual img{min-height:225px}.visual-tag{left:11px;bottom:11px;font-size:8px}
+      .winter-strip{min-height:220px;margin:0 0 48px;border-radius:20px}
+      .winter-strip figcaption{padding:22px;gap:10px;background:linear-gradient(90deg,rgba(38,20,72,.75),rgba(49,27,88,.28) 72%,transparent)}
+      .winter-strip strong{max-width:360px;font-size:32px}
+    }
+    @media(max-width:370px){.brand img{width:136px}.season{font-size:8px;padding:6px 7px}.hero{padding:23px 18px}.hero-visual,.hero-visual img{min-height:200px;height:200px}.winter-strip{min-height:205px}.winter-strip strong{font-size:28px}}
+
   </style>
 </head>
 <body>
-<header class="shell topbar"><div class="brand"><img src="https://raw.githubusercontent.com/kseniajarikova/sekta-salad-builder/main/sekta-logo-transparent.png" alt="#sekta"></div><div class="season">Soft Power: зима 2026</div></header>
+<header class="shell topbar"><div class="brand"><img src="assets/softpower-purple.png" alt="SEKTA Soft Power"></div><div class="season">Soft Power: зима 2026</div></header>
 <main class="shell">
-  <section class="hero" id="top"><div class="hero-copy"><p class="eyebrow">Интерактивная шпаргалка: 1 неделя</p><h1>Собери свою<br><em>тёплую тарелку</em></h1><p class="intro">Когда за окном холодно, особенно приятно поесть что-то тёплое и сытное. Выбирай привычные продукты и собирай сочетание, которое хочется повторить.</p><a class="button" href="#builder"><span>Начать собирать</span><b>↓</b></a></div></section>
-  <section class="how" aria-label="Как работает конструктор"><article class="how-card"><h2>Простая формула</h2><p>Собери один приём пищи из четырёх частей. Выбирай по одному варианту — или добавляй больше того, что тебе нравится.</p><div class="formula"><span>Основа</span><span>Сытный компонент</span><span>Овощи</span><span>Вкус</span></div></article><article class="how-card"><h2>Не нужно усложнять</h2><p>Подойдут обычные продукты, заморозка и то, что уже есть дома. Это примерная сборка на одного человека: количество можно менять под свой аппетит.</p></article></section>
-</main>
+  <section class="hero" id="top"><div class="hero-copy"><p class="eyebrow">Интерактивная шпаргалка: 1 неделя</p><h1>Собери свою<br><em>тёплую тарелку</em></h1><p class="intro">Когда за окном холодно, особенно приятно поесть что-то тёплое и сытное. Выбирай привычные продукты и собирай сочетание, которое хочется повторить.</p><a class="button" href="#builder"><span>Начать собирать</span><b>↓</b></a></div><figure class="hero-visual"><img src="assets/warm-dish.webp" alt="Тёплая тарелка с овощами и крупой на зимнем столе"><span class="visual-tag">ТЕПЛО, КОТОРОЕ МОЖНО СОБРАТЬ</span></figure></section>
+  <section class="how" aria-label="Как работает конструктор"><article class="how-card"><h2>Простая формула</h2><p>Собери один приём пищи из четырёх частей. Выбирай по одному варианту — или добавляй больше того, что тебе нравится.</p><div class="formula"><span>Основа</span><span>Сытный компонент</span><span>Овощи</span><span>Вкус</span></div></article><article class="how-card"><h2>Не нужно усложнять</h2><p>Подойдут обычные продукты, заморозка и то, что уже есть дома. Это примерная сборка на одного человека: количество можно менять под свой аппетит.</p></article></section><figure class="winter-strip"><img src="assets/winter-room.webp" alt="Светлая зимняя гостиная с ковриком для практики"><figcaption><span class="winter-pill">SOFT POWER: ЗИМА 2026</span><strong>Немного места для себя в зимнем дне.</strong></figcaption></figure>
 <section class="builder" id="builder"><div class="shell"><div class="builder-title"><div><p class="eyebrow">Конструктор</p><h2>Выбирай, сочетай,<br>сохраняй удачное</h2></div><p>Нажимай на карточки: можно выбрать несколько продуктов внутри категории. Сборка, способ приготовления и список покупок обновятся автоматически.</p></div><div class="builder-grid"><div class="choices" id="choices"></div><aside class="result" aria-live="polite"><div class="result-top"><p class="eyebrow">Твоя тёплая тарелка</p><span class="count" id="count"></span></div><h2 id="title"></h2><div class="bowl" id="bowl" aria-label="Выбранные продукты"></div><div class="recipe"><h3>Как собрать</h3><ol id="steps"></ol></div><div class="shopping"><div class="shopping-title"><h3>Список продуктов</h3><button class="copy" id="copy" type="button">Скопировать</button></div><ul id="list"></ul></div><p class="tip">Сохрани удачное сочетание — в следующий раз можно собрать его из того, что есть дома.</p></aside></div></div></section>
-<footer class="shell foot"><strong class="brand"><img src="https://raw.githubusercontent.com/kseniajarikova/sekta-salad-builder/main/sekta-logo-transparent.png" alt="#sekta"></strong><span>Soft Power 2026: маленькие опоры на зиму</span></footer>
+<footer class="shell foot"><strong class="brand"><img src="assets/softpower-purple.png" alt="SEKTA Soft Power"></strong><span>Soft Power 2026: маленькие опоры на зиму</span></footer>
 <script>
 (()=>{'use strict';
 const catalog=[
